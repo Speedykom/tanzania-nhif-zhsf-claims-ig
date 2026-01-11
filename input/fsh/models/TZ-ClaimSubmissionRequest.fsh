@@ -16,10 +16,10 @@ to FHIR R5 resources.
 * mrn 1..1 string "Medical Record Number" "Facility medical record number"
 
 * claimsItems 1..* BackboneElement "Claim items" "List of claim line items"
-  * claimsItems.itemCode 1..1 string "Item code" "Service, medication, or procedure code"
-  * claimsItems.itemQuantity 1..1 integer "Item quantity" "Quantity for the claim item"
-  * claimsItems.frequency 0..1 string "Frequency" "Optional frequency information"
-  * claimsItems.issuedNo 0..1 integer "Issued number" "Issued number when pre-approval is required"
+  * itemCode 1..1 string "Item code" "Service, medication, or procedure code"
+  * itemQuantity 1..1 integer "Item quantity" "Quantity for the claim item"
+  * frequency 0..1 string "Frequency" "Optional frequency information"
+  * issuedNo 0..1 integer "Issued number" "Issued number when pre-approval is required"
 
 * preliminaryDiagnosisCode 0..* string "Preliminary diagnosis codes" "Diagnosis codes captured during encounter"
 * finalDiagnosisCode 0..* string "Final diagnosis codes" "Diagnosis codes confirmed after encounter"
