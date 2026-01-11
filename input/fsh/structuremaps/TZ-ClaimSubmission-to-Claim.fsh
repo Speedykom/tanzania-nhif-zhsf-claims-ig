@@ -6,11 +6,11 @@ Transforms a ZHSF Claim Submission request logical model
 into a FHIR R5 Claim resource.
 """
 
-Source: TZClaimSubmissionRequest
-Target: Claim
+Source: "TZClaimSubmissionRequest"
+Target: "Claim"
 
-* mrn -> patient.identifier.value
-* facilityCode -> provider.identifier.value
+* "mrn" -> "patient.identifier.value"
+* "facilityCode" -> "provider.identifier.value"
 
-* claimsItems.itemCode -> item.productOrService.coding.code
-* claimsItems.itemQuantity -> item.quantity.value
+* "claimsItems.itemCode" -> "item.productOrService.coding.code"
+* "claimsItems.itemQuantity" -> "item.quantity.value"
