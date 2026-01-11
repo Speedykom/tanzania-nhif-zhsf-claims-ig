@@ -1,41 +1,25 @@
-map "https://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureMap/TZClaimSubmissionToClaim"
+map "http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureMap/TZClaimSubmissionToClaim"
   = "TZClaimSubmissionToClaim"
 
-uses "https://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/tz-claim-submission-request"
+uses "http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaimSubmissionRequest"
   as source
 
 uses "http://hl7.org/fhir/StructureDefinition/Claim"
   as target
 
-group ClaimSubmissionToClaim(
+group TZClaimSubmissionToClaim(
   source src : TZClaimSubmissionRequest,
   target tgt : Claim
 ) {
 
-  // ---- Claim basics ----
+  src -> tgt.id = uuid() "SetClaimId";
+
   src -> tgt.status = 'active' "SetClaimStatus";
+
   src -> tgt.use = 'claim' "SetClaimUse";
 
-  // ---- Patient ----
-  src.mrn as mrn -> tgt.patient as patient then {
-    mrn -> patient.identifier.value = mrn "SetPatientIdentifier";
-  } "MapPatient";
+  src -> tgt.meta as meta then {
+    src -> meta.profile = 'http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaim'
+  } "SetClaimMetaProfile";
 
-  // ---- Provider (Facility) ----
-  src.facilityCode as facility -> tgt.provider as provider then {
-    facility -> provider.identifier.value = facility "SetProviderIdentifier";
-  } "MapProvider";
-
-  // ---- Claim items ----
-  src.claimsItems as item -> tgt.item as claimItem then {
-
-    item.itemCode as code ->
-      claimItem.productOrService = cc('http://example.org/zhsf/item-codes', code)
-      "SetItemCode";
-
-    item.itemQuantity as qty ->
-      claimItem.quantity.value = qty
-      "SetItemQuantity";
-
-  } "MapClaimItems";
 }
