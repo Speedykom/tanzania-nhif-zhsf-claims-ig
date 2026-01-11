@@ -1,4 +1,4 @@
-Map: TZClaimSubmissionToClaim
+Mapping: TZClaimSubmissionToClaim
 Id: tz-claim-submission-to-claim
 Title: "TZ Claim Submission → FHIR Claim"
 Description: """
