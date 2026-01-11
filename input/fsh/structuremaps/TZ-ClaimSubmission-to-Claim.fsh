@@ -7,14 +7,10 @@ into a FHIR R5 Claim resource.
 """
 
 Source: TZClaimSubmissionRequest
-Target: TZClaim
+Target: Claim
 
-* -> claim.status = 'active'
-* -> claim.use = 'claim'
+* mrn -> patient.identifier.value
+* facilityCode -> provider.identifier.value
 
-* mrn -> claim.patient.identifier.value
-* facilityCode -> claim.provider.identifier.value
-
-* claimsItems as srcItem -> claim.item as tgtItem
-  * srcItem.itemCode -> tgtItem.productOrService.coding.code
-  * srcItem.itemQuantity -> tgtItem.quantity.value
+* claimsItems.itemCode -> item.productOrService.coding.code
+* claimsItems.itemQuantity -> item.quantity.value
