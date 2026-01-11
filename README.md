@@ -57,13 +57,13 @@ Once installed:
 After a successful build (usually within **3–5 minutes**), the IG will be available at:
 
 ```
-https://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/
+https://build.fhir.org/ig/Speedykom/tanzania-nhif-zhsf-claims-ig/
 ```
 
 Branch-specific builds can be accessed at:
 
 ```
-https://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/branches/master/
+https://build.fhir.org/ig/Speedykom/tanzania-nhif-zhsf-claims-ig/branches/master/
 ```
 
 > **Note**
