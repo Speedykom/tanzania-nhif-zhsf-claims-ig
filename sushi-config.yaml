@@ -1,30 +1,70 @@
+# ╭─────────────────────────────────ImplementationGuide─────────────────────────────────╮
+# │ Tanzania NHIF → ZHSF Claims Submission FHIR IG                                      │
+# ╰─────────────────────────────────────────────────────────────────────────────────────╯
+
 id: tz.nhif.zhsf.claims
 canonical: https://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig
+url: https://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/ImplementationGuide/tz.nhif.zhsf.claims
 name: TanzaniaNHIFZHSFClaimsIG
-title: Tanzania NHIF → ZHSF Claim Submission IG
-status: draft
+title: "Tanzania NHIF → ZHSF Claims Submission FHIR IG"
+description: >
+  This Implementation Guide defines the FHIR R5 facade contract for
+  submitting health insurance claims from NHIF systems to ZHSF,
+  including logical models, profiles, examples, and StructureMaps
+  for transformation and validation.
+
+status: active
+license: CC-BY-4.0
+date: 2026-01-11
 version: 0.1.0
+
 fhirVersion: 5.0.0
 
-copyrightYear: 2026
+copyrightYear: 2026+
 releaseLabel: ci-build
 
 publisher:
   name: Speedykom GmbH
-  url: https://github.com/Speedykom/tanzania-nhif-zhsf-claims-ig
+  url: https://www.speedykom.de
 
-description: >
-  Facade Contract Implementation Guide for Tanzania NHIF → ZHSF claim submission.
-  Defines Logical Models for the ZHSF JSON API payloads and StructureMaps
-  to transform them into FHIR R5 resources.
+contact:
+  - name: Ahmed Amri
+    telecom:
+      - system: email
+        value: ahmed.amri@speedykom.de
+        use: work
 
-license: CC0-1.0
+jurisdiction: urn:iso:std:iso:3166#TZ "Tanzania"
 
-jurisdiction: urn:iso:std:iso:3166#TZ "United Republic of Tanzania"
+# ───────────────────────────── Dependencies ─────────────────────────────
 
 dependencies:
-  hl7.fhir.r5.core: 5.0.0
+  hl7.fhir.uv.tools.r5: latest
+  hl7.fhir.uv.extensions.r5: latest
+
+# ───────────────────────────── Resources (EXPLICIT) ─────────────────────────────
+# This is the CRITICAL part for StructureMaps visibility
+
+resources:
+  StructureMap/TZClaimSubmissionToClaim:
+    name: TZ Claim Submission → FHIR Claim
+    description: >
+      Transforms the proprietary NHIF claim submission request
+      into a FHIR R5 Claim resource for ZHSF processing.
+    exampleBoolean: false
+
+# (future-ready placeholders – safe to add later)
+#  StructureMap/TZClaimToClaimResponse:
+#    name: FHIR Claim → ClaimResponse
+#    description: Maps adjudicated claims into a response structure
+#    exampleBoolean: false
+
+# ───────────────────────────── IG Parameters ─────────────────────────────
 
 parameters:
-  apply-contact: true
-  apply-jurisdiction: true
+  path-resource:
+    - input/maps     # <-- REQUIRED for .fml StructureMaps
+  path-pages:
+    - input/pagecontent
+
+FSHOnly: false
