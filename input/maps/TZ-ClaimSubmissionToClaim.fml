@@ -14,13 +14,4 @@ group TZClaimSubmissionToClaim(
 
   src -> tgt.id = uuid() "SetClaimId";
 
-  src -> tgt.status = 'active' "SetClaimStatus";
-
-  src -> tgt.use = 'claim' "SetClaimUse";
-
-  src -> tgt.meta as meta then {
-    src -> meta.profile =
-      'http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaim'
-  } "SetClaimMetaProfile";
-
 }
