@@ -19,7 +19,7 @@ group TZClaimSubmissionToClaim(
     src.claimType -> type.text;
   } "MapClaimType";
 
-  src.patientId -> tgt.patient as patient then {
+  src.patientId -> tgt.patient = create('Reference') as patient then {
     src.patientId -> patient.reference;
   } "MapPatientReference";
 
