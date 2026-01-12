@@ -8,5 +8,23 @@ group TZClaimSubmissionToClaim(
   source src : TZClaimSubmissionRequest,
   target tgt : Claim
 ) {
+
   src -> tgt.id = uuid() "SetClaimId";
+
+  src.claimNumber -> tgt.identifier as ident then {
+    src.claimNumber -> ident.value;
+  } "MapClaimNumber";
+
+  src.claimType -> tgt.type as type then {
+    src.claimType -> type.text;
+  } "MapClaimType";
+
+  src.patientId -> tgt.patient as patient then {
+    src.patientId -> patient.reference;
+  } "MapPatientReference";
+
+  src -> tgt.meta as meta then {
+    src -> meta.profile = 'http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaim';
+  } "SetClaimProfile";
+
 }
