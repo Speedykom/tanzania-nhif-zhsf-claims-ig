@@ -11,20 +11,20 @@ group TZClaimSubmissionToClaim(
 
   src -> tgt.id = uuid() "SetClaimId";
 
-  src.claimNumber -> tgt.identifier as ident then {
-    src.claimNumber -> ident.value;
+  src.claimNumber -> tgt.identifier = create('Identifier') as ident then {
+    ident.value = src.claimNumber;
   } "MapClaimNumber";
 
-  src.claimType -> tgt.type as type then {
-    src.claimType -> type.text;
+  src.claimType -> tgt.type = create('CodeableConcept') as type then {
+    type.text = src.claimType;
   } "MapClaimType";
 
   src.patientId -> tgt.patient = create('Reference') as patient then {
-    src.patientId -> patient.reference;
+    patient.reference = src.patientId;
   } "MapPatientReference";
 
-  src -> tgt.meta as meta then {
-    src -> meta.profile = 'http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaim';
+  src -> tgt.meta = create('Meta') as meta then {
+    meta.profile = 'http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaim';
   } "SetClaimProfile";
 
 }
