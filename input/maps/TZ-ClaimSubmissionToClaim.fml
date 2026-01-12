@@ -1,13 +1,34 @@
-map "http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureMap/TZClaimSubmissionToClaim" = "TZClaimSubmissionToClaim"
+map "http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureMap/TZClaimSubmissionToClaim"
+  = "TZClaimSubmissionToClaim"
 
-uses "http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaimSubmissionRequest" as source
-uses "http://hl7.org/fhir/StructureDefinition/Claim" as target
+uses "http://build.fhir.org/ig/speedykom/tanzania-nhif-zhsf-claims-ig/StructureDefinition/TZClaimSubmissionRequest"
+  as source
+
+uses "http://hl7.org/fhir/StructureDefinition/Claim"
+  as target
 
 group TZClaimSubmissionToClaim(
   source src : TZClaimSubmissionRequest,
   target tgt : Claim
 ) {
 
+  // -----------------------------
+  // Claim technical identifier
+  // -----------------------------
   src -> tgt.id = uuid() "SetClaimId";
+
+  // -----------------------------
+  // NHIF Claim Number → Claim.identifier
+  // -----------------------------
+  src.claimNumber -> tgt.identifier as ident then {
+    src.claimNumber -> ident.value "SetIdentifierValue";
+  } "MapClaimNumber";
+
+  // -----------------------------
+  // Claim Type (text only for now)
+  // -----------------------------
+  src.claimType -> tgt.type as type then {
+    src.claimType -> type.text "SetClaimTypeText";
+  } "MapClaimType";
 
 }
